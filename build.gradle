@@ -1,0 +1,27 @@
+
+apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'scala'
+
+group = 'test3'
+version = '1.0-SNAPSHOT'
+
+description = """"""
+
+sourceCompatibility = 1.5
+targetCompatibility = 1.5
+
+repositories {
+        
+     maven { url "http://repo.maven.apache.org/maven2" }
+}
+dependencies {
+    compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version:'2.2.0-M2'
+    compile group: 'io.gatling', name: 'gatling-app', version:'2.2.0-M2'
+    compile group: 'io.gatling', name: 'gatling-recorder', version:'2.2.0-M2'
+    compile group: 'org.scala-lang', name: 'scala-library', version:'2.11.6'
+
+}
+
+
