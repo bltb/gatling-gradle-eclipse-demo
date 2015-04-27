@@ -1,4 +1,4 @@
-package test3
+package net.realthought.demo.gatling.gradle
 
 import scala.concurrent.duration._
 
@@ -6,7 +6,7 @@ import io.gatling.core.Predef._
 import io.gatling.http.Predef._
 import io.gatling.jdbc.Predef._
 
-class Test3RecordedSimulation extends Simulation {
+class SimpleGoogleTestRecordedSimulation extends Simulation {
 
 	val httpProtocol = http
 		.baseURL("https://www.google.com.au")

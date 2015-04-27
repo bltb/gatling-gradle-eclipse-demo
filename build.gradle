@@ -1,27 +1,57 @@
-
 apply plugin: 'java'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'scala'
+apply plugin: 'idea'
 
 group = 'test3'
-version = '1.0-SNAPSHOT'
+version = '0.0.1-SNAPSHOT'
 
-description = """"""
+description = """Gatling Gradle IDE Eclipse IntelliJ Demo Project"""
 
-sourceCompatibility = 1.5
-targetCompatibility = 1.5
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
 
 repositories {
-        
-     maven { url "http://repo.maven.apache.org/maven2" }
+    mavenCentral()
+    mavenLocal()
 }
+
 dependencies {
     compile group: 'io.gatling.highcharts', name: 'gatling-charts-highcharts', version:'2.2.0-M2'
     compile group: 'io.gatling', name: 'gatling-app', version:'2.2.0-M2'
     compile group: 'io.gatling', name: 'gatling-recorder', version:'2.2.0-M2'
     compile group: 'org.scala-lang', name: 'scala-library', version:'2.11.6'
-
 }
 
+sourceSets {
+    scala {
+        test {
+            // Location for compiled scala classes
+            output.classesDir = 'target/test-classes'
+            output.resourcesDir = output.classesDir
+        }
+    }
+}
 
+eclipse.classpath.file.whenMerged {
+    classpath ->
+        def outputDir = new org.gradle.plugins.ide.eclipse.model.Output('target/test-classes')
+    classpath.entries.add(outputDir)
+}
+
+task run(type: JavaExec, dependsOn: classes) {
+    // Default name of main class created by archetype
+    // mvn archetype:generate
+    // io.gatling.highcharts:gatling-highcharts-maven-archetype
+    // http://gatling.io/docs/2.1.5/extensions/maven_archetype.html
+    main = 'Engine'
+
+    // Location of main 'Engine' class. See above sourceSets.scala.test.output.*
+    classpath sourceSets.test.runtimeClasspath
+
+    // By default, Gatling requires user input
+    standardInput = System.in
+}
+
+// vim: set ts=4 sw=4 et:
